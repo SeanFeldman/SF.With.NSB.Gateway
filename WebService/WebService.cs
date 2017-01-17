@@ -16,8 +16,7 @@ namespace WebService
     /// </summary>
     internal sealed class WebService : StatelessService
     {
-        public WebService(StatelessServiceContext context)
-            : base(context)
+        public WebService(StatelessServiceContext context) : base(context)
         { }
 
         /// <summary>
@@ -31,7 +30,7 @@ namespace WebService
                                        .Select(endpoint => endpoint.Name);
 
             return endpoints.Select(endpoint => new ServiceInstanceListener(
-                serviceContext => new OwinCommunicationListener(Startup.ConfigureApp, serviceContext, ServiceEventSource.Current, endpoint), endpoint));
+                serviceContext => new NServiceBusGatewayCommunicationListener(Startup.ConfigureApp, serviceContext, ServiceEventSource.Current, endpoint), endpoint));
         }
 
         /// <summary>
